@@ -59,22 +59,28 @@
      </footer>
 </body>
 <script>
-  $("#return").hide()
-  $("#img").hide()
-document.getElementById("formConvert").addEventListener('submit', event =>{
-  $("#return").hide()
-  event.preventDefault()
-    $("#img").show()
-    setTimeout(()=>{
-      $("#img").hide()
-      let consult = convert(document.getElementById('valueToConvert').value.toUpperCase())
+  $("#return").hide() // ESCONDO O BOX DE RETORNO
+  $("#img").hide()    // ESCONDO A IMAGEM DE LOADING
+document.getElementById("formConvert").addEventListener('submit', event =>{ // ADICIONO A ESCUTA NO EVENTO SUBMIT DO FORMULARIO
+  $("#return").hide() // ESCONDO O BOX DE RETORNO, CASO ELE ESTEJA VISIVEL
+  event.preventDefault()  // EVITO O REFRESH DA PAGINA 
+    $("#img").show()      // EXIBO A IMG DE LOADING
+    setTimeout(()=>{      // CRIO UM TIMER PARA DAR TEMPO DE FAZER O EFEITO ESPERADO
+      $("#img").hide()    // ESCONDO A IMAGEM DE LOADING 
+      let consult = convert(document.getElementById('valueToConvert').value.toUpperCase()) // CAPTURO O VALOR DIGITADO NO FORMULARIO 
+      
+      /**
+       * VERIFICO SE NÃO FOI RETORNADO NENHUM ERRO (PELAS PALAVRAS PRÉ DETERMINADAS)
+      */
       if(consult === "The value is not a valid Integer or Roman Numeral" || consult === "The value is out of range (Only accepted between 1-3999)"){
-          document.getElementById('return').innerHTML = `<p class="alerta error">${consult}</p>`
+        // SE RETORNAR ERRO INSERE DENTRO DO BOX DE RETORNO A MENSAGEM E O ESTILO DO ERRO  
+        document.getElementById('return').innerHTML = `<p class="alerta error">${consult}</p>`
       } else {
+        // SE NÃO ESTIVER NADA ERRADO INSERE DENTRO DO BOX DE RETORNO A MENSAGEM E O ESTILO DE SUCESSO
           document.getElementById('return').innerHTML = `<p class="alerta success">O número <strong>${document.getElementById('valueToConvert').value.toUpperCase()}</strong> é igual a <strong>${consult}</strong></p>`
       }   
-      $("#return").show() 
-    },1500)
+      $("#return").show()  // EXIBE O BOX DE RETORNO
+    },1500) // DETERMINO O TEMPO QUE ESSE EFEITO (LOADING) VAI FICAR ATÉ QUE ELE EXECUTE A TAREFA E ESCONDA O LOADING
         
 })
 </script>
